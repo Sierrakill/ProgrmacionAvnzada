@@ -9,12 +9,24 @@
 <body>
 
     <div id ="contenedor">
-        <h1>
-            {{name}}
-        </h1>
-        <p>
-            {{lastname}}
-        </p>
+
+        <h2>
+            Pro del salon
+
+        </h2>
+        <li v-for="alumno in palomilla">
+            {{alumno.name }}
+            {{alumno.role}}
+        </li>
+        <fieldset>
+            <input type="text" v-model="a_name" a_name="">
+            <input type="text" v-model="role" role="">
+
+            <button @click=addpalomilla()>
+                agregar
+            </button>
+        </fieldset>
+
         <form>
             <fieldset>
                 <legend>Datos Personales</legend>
@@ -56,7 +68,15 @@
                     lastname: 'Sierra',
                     resultado:0,
                     numero1:0,
-                    numero2:0
+                    numero2:0,
+                    palomilla:[
+                        {name:'Suzzet' ,role:'Backend'},
+                        {name:'Emmanuel',role:'Frontend'},
+                        {name:'Isaac', role:'Backend'},
+                        {name:'Dara',role:'Backend'}
+                    ],
+                    a_name:"",
+                    role:""
 
                 
                 }
@@ -71,7 +91,7 @@
 
                 },
                 addpalomilla(){
-                    this.palomilla.push({name:this.addpalomilla,role:this.role})
+                    this.palomilla.push({name:this.a_name,role:this.role})
                     this.a_name=""
                     this.role=""
                 }
