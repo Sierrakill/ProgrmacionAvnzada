@@ -4,99 +4,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vue</title>
 </head>
-
 <body>
 
-<canvas id="canvas" width="500" height="500">
-  Tu navegador no admite el elemento canvas
-</canvas>
-    
-<script type="text/javascript">
-var cv = null;
-var ctx = null;
-var super_X=240;
-var super_Y=240;
+    <div id ="contenedor">
+        <h1>
+            {{name}}
+        </h1>
+        <p>
+            {{lastname}}
+        </p>
+        <form>
+            <fieldset>
+                <legend>Datos Personales</legend>
+                <input type = "text" v-model = "name" name = "">
+                <input type = "text" v-model = "lastname" lastname = "">
 
-function start(){
- cv = document.getElementById('canvas');
- ctx = cv.getContext('2d') 
- paint();
-}
+                <button @click="saludar">
+                    saludar
+                </button>
+            </fieldset>
+        </form>
 
-
-
-
-       /* document.addEventListener('keydown', function(e){
-            console.log(e.keyCode)
-          if(e.keyCode==87 || e.keyCode==38){
-            super_Y-=10;
-
-          }
-          if(e.keyCode==83 || e.keyCode==40){
-            super_Y+=10;
-          }
-          if(e.keyCode==65 || e.keyCode==37){
-            super_X-=10;
-          }
-          if(e.keyCode==68 || e.keyCode==39){
-            super_X+=10;
-          }
-
-          paint();
-
-        });
-        */
-
-
-    
-
-        window.requestAnimationFrame = (function () {
-        return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        function (callback) {
-            window.setTimeout(callback, 17);
-        };
-}());
-
-        function paint(){
-         window.requestAnimationFrame(paint);
-         ctx.fillStyle="pink"
-          ctx.fillRect(0,0,500,500);
-          ctx.fillStyle="red";
-          ctx.fillRect(super_X,super_Y,40,40);
-          ctx.strokeRect(super_X,super_Y,40,40);
-          update();
-        }
-
-        function update(){
-            super_X+=10;
-            if(super_X>500){
-                super_X=0;
-            }
-
-            super_Y+=10;
-            if (super_Y>500){
-                super_Y=0;
-            }
-        }
         
-       /* function rec(x,y,w,h,c){
-            this.x=x;
-            this.y=y;
-            this.w=w;
-            this.h=h;
-            this.c=c;
+            <fieldset>
+                <legend>Calculadora</legend>
+                <input type = "text" v-model = "numero1" numero1 = "">
+                <input type = "text" v-model = "numero2" numero2 = "">
+
+                <button @click="sumar">
+                    sumar
+                </button>
+                <h1>
+                    {{resultado}}
+
+                </h1>
+            </fieldset>
+        
 
 
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script type="text/javascript">
+        const {createApp} = Vue
+        const app = createApp({
+            data(){
+                return{
+                    name: 'Oscar',
+                    lastname: 'Sierra',
+                    resultado:0,
+                    numero1:0,
+                    numero2:0
+
+                
+                }
+            },
+            methods:{
+                saludar(){
+                    alert("Hola: "+this.name+" "+this.lastname)
+                },
+
+                sumar(){
+                    this.resultado= parseInt(this.numero1) + parseInt(this.numero2)
+
+                },
+                addpalomilla(){
+                    this.palomilla.push({name:this.addpalomilla,role:this.role})
+                    this.a_name=""
+                    this.role=""
+                }
+            }
             
-        }*/
-
-
-     window.addEventListener('load', start)
-
-</script>
+        }).mount('#contenedor')
+    </script>
 </body>
 </html>
