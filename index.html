@@ -9,50 +9,27 @@
 <body>
 
     <div id ="contenedor">
-
-        <h2>
-            Pro del salon
-
-        </h2>
-        <li v-for="alumno in palomilla">
-            {{alumno.name }}
-            {{alumno.role}}
-        </li>
-        <fieldset>
-            <input type="text" v-model="a_name" a_name="">
-            <input type="text" v-model="role" role="">
-
-            <button @click=addpalomilla()>
-                agregar
-            </button>
-        </fieldset>
-
         <form>
             <fieldset>
-                <legend>Datos Personales</legend>
-                <input type = "text" v-model = "name" name = "">
-                <input type = "text" v-model = "lastname" lastname = "">
+                <legend>
+                    Datos acceso
+                </legend>
 
-                <button @click="saludar">
-                    saludar
+                <label>
+                    correo Electronico
+                </label>
+                <input type="text" v-model="email" email="">
+                <label>
+                    password
+                </label>
+                <input type="password" v-model="password" password="">
+    
+                <button @click=login>
+                    login
                 </button>
             </fieldset>
         </form>
 
-        
-            <fieldset>
-                <legend>Calculadora</legend>
-                <input type = "text" v-model = "numero1" numero1 = "">
-                <input type = "text" v-model = "numero2" numero2 = "">
-
-                <button @click="sumar">
-                    sumar
-                </button>
-                <h1>
-                    {{resultado}}
-
-                </h1>
-            </fieldset>
         
 
 
@@ -64,37 +41,43 @@
         const app = createApp({
             data(){
                 return{
-                    name: 'Oscar',
-                    lastname: 'Sierra',
-                    resultado:0,
-                    numero1:0,
-                    numero2:0,
-                    palomilla:[
-                        {name:'Suzzet' ,role:'Backend'},
-                        {name:'Emmanuel',role:'Frontend'},
-                        {name:'Isaac', role:'Backend'},
-                        {name:'Dara',role:'Backend'}
-                    ],
-                    a_name:"",
-                    role:""
-
-                
+                    users:null,
+                    email:'',
+                    password:''
                 }
             },
             methods:{
-                saludar(){
-                    alert("Hola: "+this.name+" "+this.lastname)
-                },
+                login(e){
+                    var emailtmp = this.email;
+                var passwordtmp = this.password;
+                var access = this.users.map(function(u){
 
-                sumar(){
-                    this.resultado= parseInt(this.numero1) + parseInt(this.numero2)
+                    if(emailtmp === u.email){
+                        if(passwordtmp === u.password){
+                            var tmp_usr ={
+                                name: u.name,
+                                username: u.username,
+                                email: u.email
+                            }
 
-                },
-                addpalomilla(){
-                    this.palomilla.push({name:this.a_name,role:this.role})
-                    this.a_name=""
-                    this.role=""
+                            
+                        }
+
+                    }
+                })
+                alert("Bienvenido")
+                console.log(this.password)
+
+                e.preventDefault();
+
                 }
+                
+            },
+            mounted(){
+                fetch('data/users.json')
+                    .then((res) => res.json())
+                    .then((json) => (this.users = json))
+                    .catch((err) => (alert('no data')))
             }
             
         }).mount('#contenedor')
