@@ -1,22 +1,21 @@
 <?php 
 	include_once"config.php";
-
-	if (isset($_POST["action"])) {
-		if(isset($_POST['super_token'])&&$_POST['super_token']==$_SESSION['super_token']) {
-
-		switch($_POST['action'])
-		{
+	
+	if (isset($_POST['action'])){
+		if (isset($_POST['super_token']) && $_POST['super_token'] == $_SESSION['super_token']){
+		  switch ($_POST['action']){
 			case 'access':
-
+				
 				$email = strip_tags($_POST['email']);
 				$password = strip_tags($_POST['password']);
-
-				$authController = new AuthController();
-				$authController->login($email,$password);
-			break;
+	  
+				$authController = new AuthController($email, $password);
+				$authController->login($email, $password);
+			  break;
+		  }
 		}
-	}
-	}
+		
+	  }
 	
 	
 
@@ -59,11 +58,11 @@
 				$_SESSION['token'] = $response->data->token;
 
 
-				header("Location:../products?success");
+				header("Location:".BASEPATH."/products?success");
 
 			}else{
 
-				header("Location:../?error");
+				header("Location:".BASEPATH."/?error");
 			}
 
 		}
